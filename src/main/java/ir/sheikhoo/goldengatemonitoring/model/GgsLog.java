@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-@Table(schema = "GGS_LOG")
 public class GgsLog {
     @Id
     private LocalDate time;

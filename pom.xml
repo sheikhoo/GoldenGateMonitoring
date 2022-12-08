@@ -49,6 +49,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>GoldenGateMonitoring</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
