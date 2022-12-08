@@ -23,8 +23,16 @@ public class GgsLogServiceImp implements GgsLogService{
             if (runCommand.isWindows()) {
                 command = "cd \"" + Setting.GGS_HOME + "\" && dir";
             }else {
-                command = "ls " + Setting.GGS_HOME;
+                command = """
+                    su %s -c %s/ggsci << EOF
+                    %s
+                    info all
+                    exit
+                    EOF
+                    """;
             }
+            command=command.formatted(Setting.GGS_USER,Setting.GGS_HOME,Setting.GGS_USER_PWD);
+
             var r = runCommand.run(command);
             String line;
 
