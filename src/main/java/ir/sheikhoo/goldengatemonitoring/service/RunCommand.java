@@ -14,7 +14,7 @@ public class RunCommand {
     }
 
     public BufferedReader run(String command) throws IOException {
-        ProcessBuilder builder = new ProcessBuilder();
+        var builder = new ProcessBuilder();
         if (isWindows()) {
             builder.command("cmd.exe", "/c", command);
         } else {

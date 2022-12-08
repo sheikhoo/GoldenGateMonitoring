@@ -16,7 +16,7 @@ public class GgsLogServiceImp implements GgsLogService{
 
     @Override
     public String testCmd() {
-        String out="";
+        var out="";
 
         try {
             String command;
@@ -25,7 +25,7 @@ public class GgsLogServiceImp implements GgsLogService{
             }else {
                 command = "ls " + Setting.GGS_HOME;
             }
-            BufferedReader r = runCommand.run(command);
+            var r = runCommand.run(command);
             String line;
 
             while (true) {
