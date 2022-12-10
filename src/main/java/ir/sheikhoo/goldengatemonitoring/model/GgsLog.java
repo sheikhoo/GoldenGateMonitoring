@@ -1,25 +1,23 @@
 package ir.sheikhoo.goldengatemonitoring.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
 public class GgsLog {
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     @Column
-    private LocalDate time;
+    private LocalDateTime time;
     @Column
-    private Boolean program;
+    private String program;
     @Column
     private Boolean status;
     @Column
-    private String group;
+    private String groupName;
     @Column
     private LocalTime lagAtChkpt;
     @Column
@@ -28,12 +26,12 @@ public class GgsLog {
     public GgsLog() {
     }
 
-    public GgsLog(Long id, LocalDate time, Boolean program, Boolean status, String group, LocalTime lagAtChkpt, LocalTime lagSinceChkpt) {
+    public GgsLog(Long id, LocalDateTime time, String program, Boolean status, String groupName, LocalTime lagAtChkpt, LocalTime lagSinceChkpt) {
         this.id = id;
         this.time = time;
         this.program = program;
         this.status = status;
-        this.group = group;
+        this.groupName = groupName;
         this.lagAtChkpt = lagAtChkpt;
         this.lagSinceChkpt = lagSinceChkpt;
     }
@@ -46,19 +44,19 @@ public class GgsLog {
         this.id = id;
     }
 
-    public LocalDate getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
-    public void setTime(LocalDate time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 
-    public Boolean getProgram() {
+    public String getProgram() {
         return program;
     }
 
-    public void setProgram(Boolean program) {
+    public void setProgram(String program) {
         this.program = program;
     }
 
@@ -70,12 +68,12 @@ public class GgsLog {
         this.status = status;
     }
 
-    public String getGroup() {
-        return group;
+    public String getGroupName() {
+        return groupName;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public void setGroupName(String group) {
+        this.groupName = group;
     }
 
     public LocalTime getLagAtChkpt() {

@@ -1,17 +1,24 @@
 package ir.sheikhoo.goldengatemonitoring.service;
 
 import ir.sheikhoo.goldengatemonitoring.Setting;
+import ir.sheikhoo.goldengatemonitoring.model.GgsLog;
+import ir.sheikhoo.goldengatemonitoring.model.GgsLogRepository;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class GgsLogServiceImp implements GgsLogService{
 
     private final RunCommand runCommand;
+    private final GgsLogRepository ggsLogRepository;
 
-    public GgsLogServiceImp(RunCommand runCommand) {
+    public GgsLogServiceImp(RunCommand runCommand, GgsLogRepository ggsLogRepository) {
         this.runCommand = runCommand;
+        this.ggsLogRepository = ggsLogRepository;
     }
 
     @Override
@@ -41,6 +48,8 @@ public class GgsLogServiceImp implements GgsLogService{
             String LagAtChkpt;
             String LagSinceChkpt;
 
+            List<GgsLog> ggsLogs=new ArrayList<>();
+
             while (true) {
                 line = r.readLine();
                 if (line == null) {
@@ -51,25 +60,49 @@ public class GgsLogServiceImp implements GgsLogService{
                     } catch (Exception e) {
                         srevice = "NULL";
                     }
-
+                    var ggsLog=new GgsLog();
                     if(srevice.equals("MANAGER")){
-                        status=line.substring(srevice.length()+2);
+                        status=line.substring(srevice.length()+2).trim();
+
+                        ggsLog.setTime(LocalDateTime.now());
+                        ggsLog.setProgram(srevice);
+                        ggsLog.setStatus(status.trim().equals("RUNNING")?Boolean.TRUE:Boolean.FALSE);
+                        ggsLogs.add(ggsLog);
+
                         out = out + "\n , " + srevice + ":" + status;
                     }else if(srevice.equals("EXTRACT") || srevice.equals("REPLICAT")){
                         line=line.trim().replaceAll(" +", " ");
-                        status=line.substring(srevice.length()+1,line.indexOf(' ',srevice.length()+1));
-                        title=line.substring(srevice.length() + status.length() +2,line.indexOf(' ',srevice.length() + status.length() +2));
-                        LagAtChkpt=line.substring(srevice.length() + status.length() + title.length() +3,line.indexOf(' ',srevice.length() + status.length() + title.length() +3));
-                        LagSinceChkpt=line.substring(srevice.length() + status.length() + title.length() +LagAtChkpt.length() +4);
+                        String[] parts = line.split(" ");
+
+                        status=parts[1];
+                        title=parts[2];
+                        LagAtChkpt=parts[3];
+                        LagSinceChkpt=parts[4];
+
+                        ggsLog.setTime(LocalDateTime.now());
+                        ggsLog.setProgram(srevice);
+                        ggsLog.setStatus(status.trim().equals("RUNNING")?Boolean.TRUE:Boolean.FALSE);
+                        ggsLog.setGroupName(title);
+                        ggsLog.setLagAtChkpt(LocalTime.parse(LagAtChkpt));
+                        ggsLog.setLagSinceChkpt(LocalTime.parse(LagSinceChkpt));
+                        ggsLogs.add(ggsLog);
+
                         out = out + "\n , " + srevice + ":" + status + "-" + title + "-" + LagAtChkpt + "-" + LagSinceChkpt;
                     }
-
                 }
+            }
+            if(ggsLogs.size()>0){
+                ggsLogRepository.saveAll(ggsLogs);
             }
         }catch (Exception e){
             return e.getMessage();
         }
         return out;
 
+    }
+
+    @Override
+    public List<GgsLog> getAllLog() {
+        return ggsLogRepository.findAll();
     }
 }

@@ -1,26 +1,27 @@
 package ir.sheikhoo.goldengatemonitoring.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class GgsLogDto {
     private Long id;
-    private LocalDate time;
-    private Boolean program;
+    private LocalDateTime time;
+    private String program;
     private Boolean status;
-    private String group;
+    private String groupName;
     private LocalTime lagAtChkpt;
     private LocalTime lagSinceChkpt;
 
     public GgsLogDto() {
     }
 
-    public GgsLogDto(Long id, LocalDate time, Boolean program, Boolean status, String group, LocalTime lagAtChkpt, LocalTime lagSinceChkpt) {
+    public GgsLogDto(Long id, LocalDateTime time, String program, Boolean status, String groupName, LocalTime lagAtChkpt, LocalTime lagSinceChkpt) {
         this.id = id;
         this.time = time;
         this.program = program;
         this.status = status;
-        this.group = group;
+        this.groupName = groupName;
         this.lagAtChkpt = lagAtChkpt;
         this.lagSinceChkpt = lagSinceChkpt;
     }
@@ -33,19 +34,19 @@ public class GgsLogDto {
         this.id = id;
     }
 
-    public LocalDate getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
-    public void setTime(LocalDate time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 
-    public Boolean getProgram() {
+    public String getProgram() {
         return program;
     }
 
-    public void setProgram(Boolean program) {
+    public void setProgram(String program) {
         this.program = program;
     }
 
@@ -57,12 +58,12 @@ public class GgsLogDto {
         this.status = status;
     }
 
-    public String getGroup() {
-        return group;
+    public String getgroupName() {
+        return groupName;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public void setgroupName(String groupName) {
+        this.groupName = groupName;
     }
 
     public LocalTime getLagAtChkpt() {

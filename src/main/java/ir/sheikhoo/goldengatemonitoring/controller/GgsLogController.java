@@ -1,8 +1,11 @@
 package ir.sheikhoo.goldengatemonitoring.controller;
 
+import ir.sheikhoo.goldengatemonitoring.model.GgsLog;
 import ir.sheikhoo.goldengatemonitoring.service.GgsLogService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class GgsLogController {
@@ -16,5 +19,10 @@ public class GgsLogController {
     @GetMapping(value = {"/",""})
     public String testCmd(){
         return ggsLogService.testCmd();
+    }
+
+    @GetMapping("/getAll")
+    public List<GgsLog> getAll(){
+        return ggsLogService.getAllLog();
     }
 }
