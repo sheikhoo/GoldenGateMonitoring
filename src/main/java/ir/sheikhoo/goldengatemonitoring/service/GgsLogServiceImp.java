@@ -49,6 +49,7 @@ public class GgsLogServiceImp implements GgsLogService{
             String LagSinceChkpt;
 
             List<GgsLog> ggsLogs=new ArrayList<>();
+            var localDateTime=LocalDateTime.now();
 
             while (true) {
                 line = r.readLine();
@@ -61,10 +62,11 @@ public class GgsLogServiceImp implements GgsLogService{
                         srevice = "NULL";
                     }
                     var ggsLog=new GgsLog();
+
                     if(srevice.equals("MANAGER")){
                         status=line.substring(srevice.length()+2).trim();
 
-                        ggsLog.setTime(LocalDateTime.now());
+                        ggsLog.setTime(localDateTime);
                         ggsLog.setProgram(srevice);
                         ggsLog.setStatus(status.trim().equals("RUNNING")?Boolean.TRUE:Boolean.FALSE);
                         ggsLogs.add(ggsLog);
@@ -79,7 +81,7 @@ public class GgsLogServiceImp implements GgsLogService{
                         LagAtChkpt=parts[3];
                         LagSinceChkpt=parts[4];
 
-                        ggsLog.setTime(LocalDateTime.now());
+                        ggsLog.setTime(localDateTime);
                         ggsLog.setProgram(srevice);
                         ggsLog.setStatus(status.trim().equals("RUNNING")?Boolean.TRUE:Boolean.FALSE);
                         ggsLog.setGroupName(title);
@@ -104,5 +106,11 @@ public class GgsLogServiceImp implements GgsLogService{
     @Override
     public List<GgsLog> getAllLog() {
         return ggsLogRepository.findAll();
+    }
+
+    @Override
+    public List<GgsLog> getCurrent() {
+        LocalDateTime time=ggsLogRepository.findFirstByOrderByTimeDesc().getTime();
+        return ggsLogRepository.findAllByTime(time);
     }
 }

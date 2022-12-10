@@ -25,4 +25,9 @@ public class GgsLogController {
     public List<GgsLog> getAll(){
         return ggsLogService.getAllLog();
     }
+
+    @GetMapping("/getCurrent")
+    public List<GgsLog> getCurrent(){
+        return ggsLogService.getCurrent();
+    }
 }
