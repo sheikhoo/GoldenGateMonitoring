@@ -17,6 +17,8 @@ public class GgsLog {
     @Column
     private Boolean status;
     @Column
+    private String statusTitle;
+    @Column
     private String groupName;
     @Column
     private LocalTime lagAtChkpt;
@@ -26,11 +28,12 @@ public class GgsLog {
     public GgsLog() {
     }
 
-    public GgsLog(Long id, LocalDateTime time, String program, Boolean status, String groupName, LocalTime lagAtChkpt, LocalTime lagSinceChkpt) {
+    public GgsLog(Long id, LocalDateTime time, String program, Boolean status, String statusTitle, String groupName, LocalTime lagAtChkpt, LocalTime lagSinceChkpt) {
         this.id = id;
         this.time = time;
         this.program = program;
         this.status = status;
+        this.statusTitle = statusTitle;
         this.groupName = groupName;
         this.lagAtChkpt = lagAtChkpt;
         this.lagSinceChkpt = lagSinceChkpt;
@@ -90,5 +93,13 @@ public class GgsLog {
 
     public void setLagSinceChkpt(LocalTime lagSinceChkpt) {
         this.lagSinceChkpt = lagSinceChkpt;
+    }
+
+    public String getStatusTitle() {
+        return statusTitle;
+    }
+
+    public void setStatusTitle(String statusTitle) {
+        this.statusTitle = statusTitle;
     }
 }

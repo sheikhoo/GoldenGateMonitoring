@@ -16,7 +16,7 @@ public class GgsLogController {
         this.ggsLogService = ggsLogService;
     }
 
-    @GetMapping(value = {"/",""})
+    @GetMapping("/test")
     public String testCmd(){
         return ggsLogService.testCmd();
     }

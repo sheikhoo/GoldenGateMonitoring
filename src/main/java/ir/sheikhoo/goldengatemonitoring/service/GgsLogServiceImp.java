@@ -69,6 +69,7 @@ public class GgsLogServiceImp implements GgsLogService{
                         ggsLog.setTime(localDateTime);
                         ggsLog.setProgram(srevice);
                         ggsLog.setStatus(status.trim().equals("RUNNING")?Boolean.TRUE:Boolean.FALSE);
+                        ggsLog.setStatusTitle(status);
                         ggsLogs.add(ggsLog);
 
                         out = out + "\n , " + srevice + ":" + status;
@@ -84,6 +85,7 @@ public class GgsLogServiceImp implements GgsLogService{
                         ggsLog.setTime(localDateTime);
                         ggsLog.setProgram(srevice);
                         ggsLog.setStatus(status.trim().equals("RUNNING")?Boolean.TRUE:Boolean.FALSE);
+                        ggsLog.setStatusTitle(status);
                         ggsLog.setGroupName(title);
                         ggsLog.setLagAtChkpt(LocalTime.parse(LagAtChkpt));
                         ggsLog.setLagSinceChkpt(LocalTime.parse(LagSinceChkpt));

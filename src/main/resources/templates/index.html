@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link th:href="@{/dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link th:href="@{/dist/libs/apexcharts/dist/apexcharts.css}" rel="stylesheet">
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Roboto);
+
+        body {
+            font-family: Roboto, sans-serif;
+        }
+
+    </style>
+    <script th:src="@{/dist/libs/apexcharts/dist/apexcharts.min.js}" defer></script>
+    <script th:src="@{/dist/js/jquery-3.6.1.min.js}" ></script>
+
+    <!--    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>-->
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-lg-3" th:each="current: ${currents}">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="subheader" th:text="${current.program}"></div>
+                        <div class="ms-auto lh-1">
+                            <div class="dropdown">
+                                <a class="dropdown-toggle text-muted" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Last 7 days</a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item active" href="#">Last 7 days</a>
+                                    <a class="dropdown-item" href="#">Last 30 days</a>
+                                    <a class="dropdown-item" href="#">Last 3 months</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-baseline">
+                        <div class="h1 mb-0 me-2" th:text="${current.groupName}"></div>
+                        <div class="me-auto">
+                            <span class="text-green d-inline-flex align-items-center lh-1" th:text="${current.statusTitle}"></span>
+                        </div>
+                    </div>
+                </div>
+                <div th:id="${current.groupName}" class="chart-sm"></div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    /*[# th:each="current: ${currents}"]*/
+    document.addEventListener("DOMContentLoaded", function () {
+        window.ApexCharts && (new ApexCharts(document.getElementById(/*[[${current.groupName}]]*/), {
+            chart: {
+                type: "area",
+                fontFamily: 'inherit',
+                height: 40.0,
+                sparkline: {
+                    enabled: true
+                },
+                animations: {
+                    enabled: false
+                },
+            },
+            dataLabels: {
+                enabled: false,
+            },
+            fill: {
+                opacity: .16,
+                type: 'solid'
+            },
+            stroke: {
+                width: 2,
+                lineCap: "round",
+                curve: "smooth",
+            },
+            series: [{
+                name: "Profits",
+                data: [37, 35, 44, 28, 36, 24, 65, 31, 37, 39, 62, 51, 35, 41, 35, 27, 93, 53, 61, 27, 54, 43, 19, 46, 39, 62, 51, 35, 41, 67]
+            }],
+            tooltip: {
+                theme: 'dark'
+            },
+            grid: {
+                strokeDashArray: 4,
+            },
+            xaxis: {
+                labels: {
+                    padding: 0,
+                },
+                tooltip: {
+                    enabled: false
+                },
+                axisBorder: {
+                    show: false,
+                },
+                type: 'datetime',
+            },
+            yaxis: {
+                labels: {
+                    padding: 4
+                },
+            },
+            labels: [
+                '2020-06-20', '2020-06-21', '2020-06-22', '2020-06-23', '2020-06-24', '2020-06-25', '2020-06-26', '2020-06-27', '2020-06-28', '2020-06-29', '2020-06-30', '2020-07-01', '2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09', '2020-07-10', '2020-07-11', '2020-07-12', '2020-07-13', '2020-07-14', '2020-07-15', '2020-07-16', '2020-07-17', '2020-07-18', '2020-07-19'
+            ],
+            //colors: [tabler.getColor("primary")],
+            legend: {
+                show: false,
+            },
+        })).render();
+    });
+    /*[/]*/
+    /*]]>*/
+</script>
+<script>
+    $( document ).ready(function() {
+        $.ajax({
+            url: '/getCurrent',
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (error) {
+                console.log(`Error ${error}`);
+            }
+        });
+    });
+</script>
+<script th:src="@{/dist/js/bootstrap.bundle.min.js}" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+
+
+</body>
+</html>
