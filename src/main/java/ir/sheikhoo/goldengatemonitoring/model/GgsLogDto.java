@@ -1,34 +1,21 @@
 package ir.sheikhoo.goldengatemonitoring.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@Entity
-public class GgsLog {
-    @Id
+public class GgsLogDto {
     private Long id;
-    @Column
     private LocalDate time;
-    @Column
     private Boolean program;
-    @Column
     private Boolean status;
-    @Column
     private String group;
-    @Column
     private LocalTime lagAtChkpt;
-    @Column
     private LocalTime lagSinceChkpt;
 
-    public GgsLog() {
+    public GgsLogDto() {
     }
 
-    public GgsLog(Long id, LocalDate time, Boolean program, Boolean status, String group, LocalTime lagAtChkpt, LocalTime lagSinceChkpt) {
+    public GgsLogDto(Long id, LocalDate time, Boolean program, Boolean status, String group, LocalTime lagAtChkpt, LocalTime lagSinceChkpt) {
         this.id = id;
         this.time = time;
         this.program = program;
