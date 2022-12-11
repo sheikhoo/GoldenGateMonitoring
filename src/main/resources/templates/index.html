@@ -115,11 +115,13 @@
     /*<![CDATA[*/
     /*[# th:each="current: ${currents}"]*/
     setInterval(getChartData(/*[[${current.groupName}]]*/), 10000);
+    /*[/]*/
     document.addEventListener("DOMContentLoaded", function () {
+        /*[# th:each="current: ${currents}"]*/
         getChartData(/*[[${current.groupName}]]*/);
+        /*[/]*/
         ggsLogs();
     });
-    /*[/]*/
     /*]]>*/
 </script>
 <script>
