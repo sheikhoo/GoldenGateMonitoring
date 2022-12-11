@@ -37,4 +37,9 @@ public class GgsLogController {
     public GgsLogChartDto getSevenDays(@PathVariable("groupName") String groupName){
         return ggsLogService.getDataSevenDaysAgo(groupName);
     }
+
+    @GetMapping("/ggsLogs")
+    public String ggsLogs(){
+        return ggsLogService.ggsLogs();
+    }
 }

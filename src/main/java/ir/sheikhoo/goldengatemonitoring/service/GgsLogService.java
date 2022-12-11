@@ -12,4 +12,5 @@ public interface GgsLogService {
     public List<GgsLog> getCurrent();
     public List<GgsLog> getAllSevenDaysAgo(String groupName);
     public GgsLogChartDto getDataSevenDaysAgo(String groupName);
+    public String ggsLogs();
 }

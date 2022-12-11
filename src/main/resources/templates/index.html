@@ -54,7 +54,7 @@
         <div class="col-12 log">
             <div class="log-title">Logs</div>
             <div class="log-text">
-
+                <p></p>
             </div>
         </div>
     </div>
@@ -74,12 +74,27 @@
             }
         });
     }
+    function ggsLogs(){
+        $.ajax({
+            url: '/ggsLogs',
+            type: "GET",
+            dataType: "text",
+            success: function (data) {
+                $('.log-text > p').text(data.toString());
+                console.log("LOG-----> ",data.toString())
+            },
+            error: function (error) {
+                console.log(`Error ${error}`);
+            }
+        });
+    }
 </script>
 <script th:inline="javascript">
     /*<![CDATA[*/
     /*[# th:each="current: ${currents}"]*/
     document.addEventListener("DOMContentLoaded", function () {
         getChartData(/*[[${current.groupName}]]*/);
+        ggsLogs();
     });
     /*[/]*/
     /*]]>*/

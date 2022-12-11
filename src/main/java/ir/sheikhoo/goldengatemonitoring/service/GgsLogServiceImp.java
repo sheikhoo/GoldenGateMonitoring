@@ -135,4 +135,32 @@ public class GgsLogServiceImp implements GgsLogService{
         return new GgsLogChartDto(times,lagAtChkpts,lagAtChkptsSec,lagSinceChkpt,lagSinceChkptSec);
     }
 
+    @Override
+    public String ggsLogs() {
+        try{
+            String command;
+            if (runCommand.isWindows()) {
+                command = "cd \"" + Setting.GGS_HOME + "\" && dir";
+            }else {
+                command = "tail -n 40 " + Setting.GGS_HOME + "/ggserr.log";
+            }
+            command=command.formatted(Setting.GGS_USER,Setting.GGS_HOME,Setting.GGS_USER_PWD);
+
+            var r = runCommand.run(command);
+
+            String line;
+            String out="";
+            while (true) {
+                line = r.readLine();
+                if (line == null) {
+                    break;
+                } else {
+                    out+= "\n\n"+line;
+                }
+            }
+            return out;
+        }catch (Exception e){
+            return e.getMessage();
+        }
+    }
 }
