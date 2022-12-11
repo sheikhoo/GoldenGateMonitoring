@@ -1,6 +1,7 @@
 package ir.sheikhoo.goldengatemonitoring.controller;
 
 import ir.sheikhoo.goldengatemonitoring.model.GgsLog;
+import ir.sheikhoo.goldengatemonitoring.model.GgsLogChartDto;
 import ir.sheikhoo.goldengatemonitoring.service.GgsLogService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,5 +30,10 @@ public class GgsLogController {
     @GetMapping("/getCurrent")
     public List<GgsLog> getCurrent(){
         return ggsLogService.getCurrent();
+    }
+
+    @GetMapping("/getSevenDays")
+    public GgsLogChartDto getSevenDays(){
+        return ggsLogService.getDataSevenDaysAgo();
     }
 }

@@ -2,6 +2,7 @@ package ir.sheikhoo.goldengatemonitoring.service;
 
 import ir.sheikhoo.goldengatemonitoring.Setting;
 import ir.sheikhoo.goldengatemonitoring.model.GgsLog;
+import ir.sheikhoo.goldengatemonitoring.model.GgsLogChartDto;
 import ir.sheikhoo.goldengatemonitoring.model.GgsLogRepository;
 import org.springframework.stereotype.Service;
 
@@ -115,4 +116,21 @@ public class GgsLogServiceImp implements GgsLogService{
         LocalDateTime time=ggsLogRepository.findFirstByOrderByTimeDesc().getTime();
         return ggsLogRepository.findAllByTime(time);
     }
+
+    @Override
+    public List<GgsLog> getAllSevenDaysAgo() {
+        LocalDateTime localDateTime=LocalDateTime.now().minusDays(7);
+        return ggsLogRepository.findAllWithTimeSevenDaysAgo(localDateTime);
+    }
+
+    @Override
+    public GgsLogChartDto getDataSevenDaysAgo() {
+        var ggsLogChart=new GgsLogChartDto();
+        List<GgsLog> ggsLogs=getAllSevenDaysAgo();
+        List<LocalDateTime> times =  ggsLogs.stream().map(t->t.getTime()).toList();
+        List<LocalTime> lagAtChkpts = ggsLogs.stream().map(t->t.getLagAtChkpt()).toList();
+        List<LocalTime> lagSinceChkpt = ggsLogs.stream().map(t->t.getLagAtChkpt()).toList();
+        return new GgsLogChartDto(times,lagAtChkpts,lagSinceChkpt);
+    }
+
 }
