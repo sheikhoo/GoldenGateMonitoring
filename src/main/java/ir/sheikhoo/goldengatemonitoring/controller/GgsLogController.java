@@ -20,7 +20,7 @@ public class GgsLogController {
 
     @GetMapping("/test")
     public String testCmd(){
-        return ggsLogService.testCmd();
+        return ggsLogService.getDataFromCmd();
     }
 
     @GetMapping("/getAll")

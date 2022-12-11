@@ -4,6 +4,7 @@ import ir.sheikhoo.goldengatemonitoring.Setting;
 import ir.sheikhoo.goldengatemonitoring.model.GgsLog;
 import ir.sheikhoo.goldengatemonitoring.model.GgsLogChartDto;
 import ir.sheikhoo.goldengatemonitoring.model.GgsLogRepository;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -23,7 +24,9 @@ public class GgsLogServiceImp implements GgsLogService{
     }
 
     @Override
-    public String testCmd() {
+    @Scheduled(fixedRate = 60000)
+    public String getDataFromCmd() {
+        System.out.println("Run cmd");
         var out="";
 
         try {

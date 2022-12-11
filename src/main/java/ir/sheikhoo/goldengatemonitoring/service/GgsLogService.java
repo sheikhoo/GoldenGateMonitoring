@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public interface GgsLogService {
-    public String testCmd();
+    public String getDataFromCmd();
     public List<GgsLog> getAllLog();
     public List<GgsLog> getCurrent();
     public List<GgsLog> getAllSevenDaysAgo(String groupName);
