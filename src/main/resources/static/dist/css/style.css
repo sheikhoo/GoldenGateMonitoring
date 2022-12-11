@@ -1,0 +1,43 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+body {
+    font-family: Roboto, sans-serif;
+}
+
+.golden-gate{
+    background-image: url(../img/golden-gate.webp);
+    background-size: 100% 100%;
+    border-radius: 9px;
+    margin: 20px auto;
+    height: 250px;
+    box-shadow: 0px 1px 9px 0px #00000057;
+}
+
+.golden-gate .title{
+    position: relative;
+    top: 44%;
+    font-size: 50px;
+    color: #fff;
+    background: #00000091;
+    padding: 5px 19px;
+    border-radius: 12px;
+    text-shadow: 0 0 0px black;
+}
+
+.card{
+    box-shadow: 0px 1px 9px 0px #00000057;
+}
+
+.log{
+    min-height: 100px;
+    margin: 20px auto;
+}
+
+.log .log-title{
+    width: 100%;
+    border-radius: 9px 9px 0 0;
+    background: #e91e3c;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 5px;
+}

@@ -6,21 +6,21 @@
     <title>Bootstrap demo</title>
     <link th:href="@{/dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link th:href="@{/dist/libs/apexcharts/dist/apexcharts.css}" rel="stylesheet">
-    <style>
-        @import url(https://fonts.googleapis.com/css?family=Roboto);
+    <link th:href="@{/dist/css/style.css}" rel="stylesheet">
 
-        body {
-            font-family: Roboto, sans-serif;
-        }
-
-    </style>
     <script th:src="@{/dist/libs/apexcharts/dist/apexcharts.min.js}" defer></script>
     <script th:src="@{/dist/js/jquery-3.6.1.min.js}" ></script>
 
     <!--    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>-->
+
 </head>
 <body>
 <div class="container">
+    <div class="row">
+        <div class="col-12 golden-gate">
+            <span class="title">Oracle GoldenGate</span>
+        </div>
+    </div>
     <div class="row">
         <div class="col-sm-6 col-lg-3" th:each="current: ${currents}">
             <div class="card">
@@ -46,6 +46,14 @@
                     </div>
                 </div>
                 <div th:id="${current.groupName}" class="chart-sm"></div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 log">
+            <div class="log-title">Logs</div>
+            <div class="log-text">
 
             </div>
         </div>
