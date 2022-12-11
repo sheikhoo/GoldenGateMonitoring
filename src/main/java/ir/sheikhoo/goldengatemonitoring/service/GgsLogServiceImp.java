@@ -155,7 +155,7 @@ public class GgsLogServiceImp implements GgsLogService{
                 if (line == null) {
                     break;
                 } else {
-                    out+= "\n\n"+line;
+                    out+= line+" <br> ";
                 }
             }
             return out;

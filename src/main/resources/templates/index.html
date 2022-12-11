@@ -66,7 +66,6 @@
             type: "GET",
             dataType: "json",
             success: function (data) {
-                console.log("data: ----->",groupName,data)
                 chart(groupName,data.times,data.lagAtChkptsSec,data.lagSinceChkptSec)
             },
             error: function (error) {
@@ -80,8 +79,30 @@
             type: "GET",
             dataType: "text",
             success: function (data) {
-                $('.log-text > p').text(data.toString());
-                console.log("LOG-----> ",data.toString())
+                let newHTML = "";
+                let index=1;
+                data.toString().replace(/[\s]+/g, " ").trim().split(" ").forEach(function(val){
+                    // If word is statement
+                    if ("INFO".indexOf(val.trim().toUpperCase()) > -1)
+                        newHTML += "<span class='LogInfo'>" + val + "&nbsp;</span>";
+                    else if("WARNING".indexOf(val.trim().toUpperCase()) > -1)
+                        newHTML += "<span class='LogWarning'>" + val + "&nbsp;</span>";
+                    else  if("ERROR".indexOf(val.trim().toUpperCase()) > -1)
+                        newHTML += "<span class='LogError'>" + val + "&nbsp;</span>";
+                    else if(index==1)
+                        newHTML += "<span class='LogDateTime'>" + val + "&nbsp;</span>";
+                    else if(index==3)
+                        newHTML += "<span class='LogOgg'>" + val + "&nbsp;</span>";
+                    else
+                        newHTML += "<span class='other'>" + val + "&nbsp;</span>";
+                    index++;
+
+                    if("<br>".indexOf(val.trim()) > -1) {
+                        index = 1;
+                    }
+                });
+
+                $('.log-text > p').html(newHTML);
             },
             error: function (error) {
                 console.log(`Error ${error}`);

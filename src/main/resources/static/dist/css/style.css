@@ -41,3 +41,33 @@ body {
     font-weight: bold;
     padding: 5px;
 }
+
+.log .log-text{
+    padding: 10px;
+    border: 1px solid #e91e3c;
+    background: #202124;
+}
+
+.log .LogInfo,.LogWarning,.LogError{
+    font-weight: bold;
+}
+.log .LogInfo {
+    color: #4b98d7;
+}
+.log .LogWarning{
+    color: #ffc107;
+}
+.log .LogError{
+    color: #c40101;
+}
+.log .LogDateTime{
+    color: #f28150;
+}
+
+.log .LogOgg{
+    color: #8bbbdc;
+}
+
+.log .other{
+    color: #ffffff;
+}
