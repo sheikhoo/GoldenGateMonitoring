@@ -46,6 +46,8 @@ body {
     padding: 10px;
     border: 1px solid #e91e3c;
     background: #202124;
+    white-space: nowrap;
+    overflow-x: scroll;
 }
 
 .log .LogInfo,.LogWarning,.LogError{

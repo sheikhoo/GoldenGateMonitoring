@@ -145,7 +145,7 @@ public class GgsLogServiceImp implements GgsLogService{
             if (runCommand.isWindows()) {
                 command = "cd \"" + Setting.GGS_HOME + "\" && dir";
             }else {
-                command = "tail -n 40 " + Setting.GGS_HOME + "/ggserr.log";
+                command = "tail -n 1000 " + Setting.GGS_HOME + "/ggserr.log";
             }
             command=command.formatted(Setting.GGS_USER,Setting.GGS_HOME,Setting.GGS_USER_PWD);
 
@@ -158,7 +158,9 @@ public class GgsLogServiceImp implements GgsLogService{
                 if (line == null) {
                     break;
                 } else {
-                    out+= line+" <br> ";
+                    if(line.indexOf("info all")==-1) {
+                        out += line + " <br> ";
+                    }
                 }
             }
             return out;
