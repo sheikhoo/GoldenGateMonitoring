@@ -118,19 +118,21 @@ public class GgsLogServiceImp implements GgsLogService{
     }
 
     @Override
-    public List<GgsLog> getAllSevenDaysAgo() {
+    public List<GgsLog> getAllSevenDaysAgo(String groupName) {
         LocalDateTime localDateTime=LocalDateTime.now().minusDays(7);
-        return ggsLogRepository.findAllWithTimeSevenDaysAgo(localDateTime);
+        return ggsLogRepository.findAllWithTimeSevenDaysAgo(localDateTime, groupName);
     }
 
     @Override
-    public GgsLogChartDto getDataSevenDaysAgo() {
+    public GgsLogChartDto getDataSevenDaysAgo(String groupName) {
         var ggsLogChart=new GgsLogChartDto();
-        List<GgsLog> ggsLogs=getAllSevenDaysAgo();
+        List<GgsLog> ggsLogs=getAllSevenDaysAgo(groupName);
         List<LocalDateTime> times =  ggsLogs.stream().map(t->t.getTime()).toList();
         List<LocalTime> lagAtChkpts = ggsLogs.stream().map(t->t.getLagAtChkpt()).toList();
-        List<LocalTime> lagSinceChkpt = ggsLogs.stream().map(t->t.getLagAtChkpt()).toList();
-        return new GgsLogChartDto(times,lagAtChkpts,lagSinceChkpt);
+        List<Integer> lagAtChkptsSec = ggsLogs.stream().map(t->t.getLagAtChkpt().toSecondOfDay()).toList();
+        List<LocalTime> lagSinceChkpt = ggsLogs.stream().map(t->t.getLagSinceChkpt()).toList();
+        List<Integer> lagSinceChkptSec = ggsLogs.stream().map(t->t.getLagSinceChkpt().toSecondOfDay()).toList();
+        return new GgsLogChartDto(times,lagAtChkpts,lagAtChkptsSec,lagSinceChkpt,lagSinceChkptSec);
     }
 
 }

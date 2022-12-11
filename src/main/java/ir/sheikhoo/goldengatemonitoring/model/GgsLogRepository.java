@@ -13,6 +13,6 @@ import java.util.List;
 public interface GgsLogRepository extends JpaRepository<GgsLog, LocalDate> {
     GgsLog findFirstByOrderByTimeDesc();
     List<GgsLog> findAllByTime(LocalDateTime time);
-    @Query("select a from GgsLog a where a.time >= :time")
-    List<GgsLog> findAllWithTimeSevenDaysAgo(@Param("time") LocalDateTime time);
+    @Query("select a from GgsLog a where a.time >= :time and a.groupName like :groupName")
+    List<GgsLog> findAllWithTimeSevenDaysAgo(@Param("time") LocalDateTime time,@Param("groupName") String groupName);
 }

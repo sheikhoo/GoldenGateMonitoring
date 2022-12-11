@@ -4,6 +4,7 @@ import ir.sheikhoo.goldengatemonitoring.model.GgsLog;
 import ir.sheikhoo.goldengatemonitoring.model.GgsLogChartDto;
 import ir.sheikhoo.goldengatemonitoring.service.GgsLogService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -32,8 +33,8 @@ public class GgsLogController {
         return ggsLogService.getCurrent();
     }
 
-    @GetMapping("/getSevenDays")
-    public GgsLogChartDto getSevenDays(){
-        return ggsLogService.getDataSevenDaysAgo();
+    @GetMapping("/getSevenDays/{groupName}")
+    public GgsLogChartDto getSevenDays(@PathVariable("groupName") String groupName){
+        return ggsLogService.getDataSevenDaysAgo(groupName);
     }
 }

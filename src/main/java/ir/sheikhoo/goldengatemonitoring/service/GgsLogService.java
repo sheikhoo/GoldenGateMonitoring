@@ -10,6 +10,6 @@ public interface GgsLogService {
     public String testCmd();
     public List<GgsLog> getAllLog();
     public List<GgsLog> getCurrent();
-    public List<GgsLog> getAllSevenDaysAgo();
-    public GgsLogChartDto getDataSevenDaysAgo();
+    public List<GgsLog> getAllSevenDaysAgo(String groupName);
+    public GgsLogChartDto getDataSevenDaysAgo(String groupName);
 }
