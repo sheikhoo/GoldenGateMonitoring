@@ -1,5 +1,6 @@
 package ir.sheikhoo.goldengatemonitoring.controller;
 
+import ir.sheikhoo.goldengatemonitoring.model.ChartTimeType;
 import ir.sheikhoo.goldengatemonitoring.model.GgsLog;
 import ir.sheikhoo.goldengatemonitoring.model.GgsLogChartDto;
 import ir.sheikhoo.goldengatemonitoring.service.GgsLogService;
@@ -36,6 +37,11 @@ public class GgsLogController {
     @GetMapping("/getSevenDays/{groupName}")
     public GgsLogChartDto getSevenDays(@PathVariable("groupName") String groupName){
         return ggsLogService.getDataSevenDaysAgo(groupName);
+    }
+
+    @GetMapping("/getChartDataList/{groupName}/{type}")
+    public GgsLogChartDto getChartDataList(@PathVariable("groupName") String groupName, @PathVariable("type") ChartTimeType type){
+        return ggsLogService.getChartDataList(groupName,type);
     }
 
     @GetMapping("/ggsLogs")

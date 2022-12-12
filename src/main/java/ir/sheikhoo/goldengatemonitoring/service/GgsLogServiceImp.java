@@ -1,6 +1,7 @@
 package ir.sheikhoo.goldengatemonitoring.service;
 
 import ir.sheikhoo.goldengatemonitoring.Setting;
+import ir.sheikhoo.goldengatemonitoring.model.ChartTimeType;
 import ir.sheikhoo.goldengatemonitoring.model.GgsLog;
 import ir.sheikhoo.goldengatemonitoring.model.GgsLogChartDto;
 import ir.sheikhoo.goldengatemonitoring.model.GgsLogRepository;
@@ -130,6 +131,25 @@ public class GgsLogServiceImp implements GgsLogService{
     public GgsLogChartDto getDataSevenDaysAgo(String groupName) {
         var ggsLogChart=new GgsLogChartDto();
         List<GgsLog> ggsLogs=getAllSevenDaysAgo(groupName);
+        List<LocalDateTime> times =  ggsLogs.stream().map(t->t.getTime()).toList();
+        List<LocalTime> lagAtChkpts = ggsLogs.stream().map(t->t.getLagAtChkpt()).toList();
+        List<Integer> lagAtChkptsSec = ggsLogs.stream().map(t->t.getLagAtChkpt().toSecondOfDay()).toList();
+        List<LocalTime> lagSinceChkpt = ggsLogs.stream().map(t->t.getLagSinceChkpt()).toList();
+        List<Integer> lagSinceChkptSec = ggsLogs.stream().map(t->t.getLagSinceChkpt().toSecondOfDay()).toList();
+        return new GgsLogChartDto(times,lagAtChkpts,lagAtChkptsSec,lagSinceChkpt,lagSinceChkptSec);
+    }
+
+    @Override
+    public GgsLogChartDto getChartDataList(String groupName, ChartTimeType type) {
+        LocalDateTime localDateTime=LocalDateTime.now();
+        switch (type){
+            case LAST_HOUR -> localDateTime=localDateTime.minusHours(1);
+            case LAST_DAY -> localDateTime=localDateTime.minusDays(1);
+            case LAST_7DAY -> localDateTime=localDateTime.minusDays(7);
+        };
+        List<GgsLog> ggsLogs=ggsLogRepository.findAllWithTimeSevenDaysAgo(localDateTime, groupName);
+
+        var ggsLogChart=new GgsLogChartDto();
         List<LocalDateTime> times =  ggsLogs.stream().map(t->t.getTime()).toList();
         List<LocalTime> lagAtChkpts = ggsLogs.stream().map(t->t.getLagAtChkpt()).toList();
         List<Integer> lagAtChkptsSec = ggsLogs.stream().map(t->t.getLagAtChkpt().toSecondOfDay()).toList();
