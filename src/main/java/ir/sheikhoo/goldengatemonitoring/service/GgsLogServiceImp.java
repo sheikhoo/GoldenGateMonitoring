@@ -33,7 +33,7 @@ public class GgsLogServiceImp implements GgsLogService{
         try {
             String command;
             if (runCommand.isWindows()) {
-                command = "cd \"" + Setting.GGS_HOME + "\" && dir";
+                command = "echo info all | " + Setting.GGS_HOME + "\\ggsci.exe";
             }else {
                 command = """
                     su %s -c %s/ggsci << EOF
