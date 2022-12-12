@@ -8,6 +8,7 @@ import ir.sheikhoo.goldengatemonitoring.model.GgsLogRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -32,8 +33,10 @@ public class GgsLogServiceImp implements GgsLogService{
 
         try {
             String command;
+            BufferedReader r;
             if (runCommand.isWindows()) {
                 command = "echo info all | " + Setting.GGS_HOME + "\\ggsci.exe";
+                r = runCommand.run(command,"cmd");
             }else {
                 command = """
                     su %s -c %s/ggsci << EOF
@@ -42,10 +45,10 @@ public class GgsLogServiceImp implements GgsLogService{
                     exit
                     EOF
                     """;
+                r = runCommand.run(command,"sh");
             }
             command=command.formatted(Setting.GGS_USER,Setting.GGS_HOME,Setting.GGS_USER_PWD);
 
-            var r = runCommand.run(command);
             String line;
             String srevice;
             String status;
@@ -162,14 +165,14 @@ public class GgsLogServiceImp implements GgsLogService{
     public String ggsLogs() {
         try{
             String command;
+            BufferedReader r;
             if (runCommand.isWindows()) {
-                command = "cd \"" + Setting.GGS_HOME + "\" && dir";
+                command = "Get-Content " + Setting.GGS_HOME + "\\ggserr.log -Tail 1000";
+                r = runCommand.run(command,"powershell");
             }else {
                 command = "tail -n 1000 " + Setting.GGS_HOME + "/ggserr.log";
+                r = runCommand.run(command,"sh");
             }
-            command=command.formatted(Setting.GGS_USER,Setting.GGS_HOME,Setting.GGS_USER_PWD);
-
-            var r = runCommand.run(command);
 
             String line;
             String out="";
