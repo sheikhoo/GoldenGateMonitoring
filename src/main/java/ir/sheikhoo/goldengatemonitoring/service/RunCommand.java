@@ -1,5 +1,6 @@
 package ir.sheikhoo.goldengatemonitoring.service;
 
+import ir.sheikhoo.goldengatemonitoring.model.CmdRunnerEnum;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
@@ -14,10 +15,10 @@ public class RunCommand {
                 .toLowerCase().startsWith("windows");
     }
 
-    public BufferedReader run(String command, @Nullable String runner) throws IOException {
+    public BufferedReader run(String command, CmdRunnerEnum runner) throws IOException {
         var builder = new ProcessBuilder();
         if (isWindows()) {
-            if(runner.equals("powershell")) {
+            if(runner.equals(CmdRunnerEnum.POWER_SHELL)) {
                 builder.command("powershell.exe", "-Command", command);
             }else {
                 builder.command("cmd.exe", "/c", command);

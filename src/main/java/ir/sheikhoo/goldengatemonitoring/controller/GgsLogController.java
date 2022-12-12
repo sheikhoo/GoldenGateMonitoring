@@ -1,6 +1,6 @@
 package ir.sheikhoo.goldengatemonitoring.controller;
 
-import ir.sheikhoo.goldengatemonitoring.model.ChartTimeType;
+import ir.sheikhoo.goldengatemonitoring.model.ChartTimeEnum;
 import ir.sheikhoo.goldengatemonitoring.model.GgsLog;
 import ir.sheikhoo.goldengatemonitoring.model.GgsLogChartDto;
 import ir.sheikhoo.goldengatemonitoring.service.GgsLogService;
@@ -40,7 +40,7 @@ public class GgsLogController {
     }
 
     @GetMapping("/getChartDataList/{groupName}/{type}")
-    public GgsLogChartDto getChartDataList(@PathVariable("groupName") String groupName, @PathVariable("type") ChartTimeType type){
+    public GgsLogChartDto getChartDataList(@PathVariable("groupName") String groupName, @PathVariable("type") ChartTimeEnum type){
         return ggsLogService.getChartDataList(groupName,type);
     }
 

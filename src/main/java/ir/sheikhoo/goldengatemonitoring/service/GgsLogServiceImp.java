@@ -1,10 +1,7 @@
 package ir.sheikhoo.goldengatemonitoring.service;
 
 import ir.sheikhoo.goldengatemonitoring.Setting;
-import ir.sheikhoo.goldengatemonitoring.model.ChartTimeType;
-import ir.sheikhoo.goldengatemonitoring.model.GgsLog;
-import ir.sheikhoo.goldengatemonitoring.model.GgsLogChartDto;
-import ir.sheikhoo.goldengatemonitoring.model.GgsLogRepository;
+import ir.sheikhoo.goldengatemonitoring.model.*;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +33,7 @@ public class GgsLogServiceImp implements GgsLogService{
             BufferedReader r;
             if (runCommand.isWindows()) {
                 command = "echo info all | " + Setting.GGS_HOME + "\\ggsci.exe";
-                r = runCommand.run(command,"cmd");
+                r = runCommand.run(command,CmdRunnerEnum.CMD);
             }else {
                 command = """
                     su %s -c %s/ggsci << EOF
@@ -45,7 +42,7 @@ public class GgsLogServiceImp implements GgsLogService{
                     exit
                     EOF
                     """;
-                r = runCommand.run(command,"sh");
+                r = runCommand.run(command,CmdRunnerEnum.SH);
             }
             command=command.formatted(Setting.GGS_USER,Setting.GGS_HOME,Setting.GGS_USER_PWD);
 
@@ -143,7 +140,7 @@ public class GgsLogServiceImp implements GgsLogService{
     }
 
     @Override
-    public GgsLogChartDto getChartDataList(String groupName, ChartTimeType type) {
+    public GgsLogChartDto getChartDataList(String groupName, ChartTimeEnum type) {
         LocalDateTime localDateTime=LocalDateTime.now();
         switch (type){
             case LAST_HOUR -> localDateTime=localDateTime.minusHours(1);
@@ -168,10 +165,10 @@ public class GgsLogServiceImp implements GgsLogService{
             BufferedReader r;
             if (runCommand.isWindows()) {
                 command = "Get-Content " + Setting.GGS_HOME + "\\ggserr.log -Tail 1000";
-                r = runCommand.run(command,"powershell");
+                r = runCommand.run(command,CmdRunnerEnum.POWER_SHELL);
             }else {
                 command = "tail -n 1000 " + Setting.GGS_HOME + "/ggserr.log";
-                r = runCommand.run(command,"sh");
+                r = runCommand.run(command, CmdRunnerEnum.SH);
             }
 
             String line;

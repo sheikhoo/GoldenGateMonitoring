@@ -1,6 +1,6 @@
 package ir.sheikhoo.goldengatemonitoring.service;
 
-import ir.sheikhoo.goldengatemonitoring.model.ChartTimeType;
+import ir.sheikhoo.goldengatemonitoring.model.ChartTimeEnum;
 import ir.sheikhoo.goldengatemonitoring.model.GgsLog;
 import ir.sheikhoo.goldengatemonitoring.model.GgsLogChartDto;
 
@@ -13,6 +13,6 @@ public interface GgsLogService {
     List<GgsLog> getCurrent();
     List<GgsLog> getAllSevenDaysAgo(String groupName);
     GgsLogChartDto getDataSevenDaysAgo(String groupName);
-    GgsLogChartDto getChartDataList(String groupName, ChartTimeType type);
+    GgsLogChartDto getChartDataList(String groupName, ChartTimeEnum type);
     String ggsLogs();
 }
