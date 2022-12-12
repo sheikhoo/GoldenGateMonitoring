@@ -2,6 +2,7 @@ package ir.sheikhoo.goldengatemonitoring.service;
 
 import ir.sheikhoo.goldengatemonitoring.Setting;
 import ir.sheikhoo.goldengatemonitoring.model.*;
+import ir.sheikhoo.goldengatemonitoring.repository.GgsLogRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
