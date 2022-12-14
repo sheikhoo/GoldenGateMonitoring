@@ -1,6 +1,5 @@
 package ir.sheikhoo.goldengatemonitoring.service;
 
-import ir.sheikhoo.goldengatemonitoring.Setting;
 import ir.sheikhoo.goldengatemonitoring.model.*;
 import ir.sheikhoo.goldengatemonitoring.repository.GgsLogRepository;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,15 +16,19 @@ public class GgsLogServiceImp implements GgsLogService{
 
     private final RunCommand runCommand;
     private final GgsLogRepository ggsLogRepository;
+    private final ConfigService configService;
 
-    public GgsLogServiceImp(RunCommand runCommand, GgsLogRepository ggsLogRepository) {
+    public GgsLogServiceImp(RunCommand runCommand, GgsLogRepository ggsLogRepository, ConfigService configService) {
         this.runCommand = runCommand;
         this.ggsLogRepository = ggsLogRepository;
+        this.configService = configService;
     }
 
-    @Override
     @Scheduled(fixedRate = 60000)
-    public String getDataFromCmd() {
+    public void getDataFromCmd() {
+        String ggsHome=configService.getGgsHome();
+        GgsUserInfoDto ggsUserInfo=configService.getGgsUserInfo();
+
         System.out.println("Run cmd");
         var out="";
 
@@ -33,7 +36,7 @@ public class GgsLogServiceImp implements GgsLogService{
             String command;
             BufferedReader r;
             if (runCommand.isWindows()) {
-                command = "echo info all | " + Setting.GGS_HOME + "\\ggsci.exe";
+                command = "echo info all | " + ggsHome + "\\ggsci.exe";
                 r = runCommand.run(command,CmdRunnerEnum.CMD);
             }else {
                 command = """
@@ -45,7 +48,7 @@ public class GgsLogServiceImp implements GgsLogService{
                     """;
                 r = runCommand.run(command,CmdRunnerEnum.SH);
             }
-            command=command.formatted(Setting.GGS_USER,Setting.GGS_HOME,Setting.GGS_USER_PWD);
+            command=command.formatted(ggsUserInfo.getGgsUser(),ggsHome,ggsUserInfo.getGgsUserPwd());
 
             String line;
             String srevice;
@@ -105,9 +108,8 @@ public class GgsLogServiceImp implements GgsLogService{
                 ggsLogRepository.saveAll(ggsLogs);
             }
         }catch (Exception e){
-            return e.getMessage();
+            e.getMessage();
         }
-        return out;
 
     }
 
@@ -165,10 +167,10 @@ public class GgsLogServiceImp implements GgsLogService{
             String command;
             BufferedReader r;
             if (runCommand.isWindows()) {
-                command = "Get-Content " + Setting.GGS_HOME + "\\ggserr.log -Tail 1000";
+                command = "Get-Content " + configService.getGgsHome() + "\\ggserr.log -Tail 1000";
                 r = runCommand.run(command,CmdRunnerEnum.POWER_SHELL);
             }else {
-                command = "tail -n 1000 " + Setting.GGS_HOME + "/ggserr.log";
+                command = "tail -n 1000 " + configService.getGgsHome() + "/ggserr.log";
                 r = runCommand.run(command, CmdRunnerEnum.SH);
             }
 

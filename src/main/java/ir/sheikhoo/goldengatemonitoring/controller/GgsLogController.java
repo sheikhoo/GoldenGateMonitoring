@@ -19,11 +19,6 @@ public class GgsLogController {
         this.ggsLogService = ggsLogService;
     }
 
-    @GetMapping("/test")
-    public String testCmd(){
-        return ggsLogService.getDataFromCmd();
-    }
-
     @GetMapping("/getAll")
     public List<GgsLog> getAll(){
         return ggsLogService.getAllLog();

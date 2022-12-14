@@ -21,11 +21,6 @@ public class AuthController {
         this.userService = userService;
     }
 
-    @GetMapping(value = {"/","/index"})
-    public String home(){
-        return "index";
-    }
-
     @GetMapping("/admin/user")
     public String showRegistrationForm(Model model){
         // create model object to store form data

@@ -5,6 +5,8 @@ import ir.sheikhoo.goldengatemonitoring.model.GgsUserInfoDto;
 import ir.sheikhoo.goldengatemonitoring.repository.ConfigRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class ConfigServiceImp implements ConfigService {
     private final ConfigRepository configRepository;
@@ -18,7 +20,7 @@ public class ConfigServiceImp implements ConfigService {
     @Override
     public Boolean isConfigOk() {
         if(configRepository.existsById(1L)) {
-            Config config = configRepository.findById(1L).get();
+            Config config = configRepository.getReferenceById(1L);
             if (config.getGgsHome() != null && !config.getGgsHome().isBlank() && !config.getGgsHome().isEmpty()) {
                 if (runCommand.isWindows()) {
                     return true;
@@ -31,13 +33,14 @@ public class ConfigServiceImp implements ConfigService {
 
     @Override
     public String getGgsHome() {
-        return configRepository.findById(1L).get().getGgsHome();
+        Config config=configRepository.findById(1L).orElse(null);
+        return config!=null?config.getGgsHome():"";
     }
 
     @Override
     public GgsUserInfoDto getGgsUserInfo() {
-        Config config=configRepository.findById(1L).get();
-        return new GgsUserInfoDto(config.getGgsUser(),config.getGgsUserPwd());
+        Config config=configRepository.findById(1L).orElse(null);
+        return config!=null?new GgsUserInfoDto(config.getGgsUser(),config.getGgsUserPwd()):null;
     }
 
     @Override
@@ -45,7 +48,7 @@ public class ConfigServiceImp implements ConfigService {
         try {
             Config config;
             if (configRepository.existsById(1L)){
-                config=configRepository.findById(1L).get();
+                config=configRepository.getReferenceById(1L);
             }else {
                 config=new Config();
                 config.setId(1L);
@@ -63,7 +66,7 @@ public class ConfigServiceImp implements ConfigService {
         try {
             Config config;
             if (configRepository.existsById(1L)){
-                config=configRepository.findById(1L).get();
+                config=configRepository.getReferenceById(1L);
             }else {
                 config=new Config();
                 config.setId(1L);
