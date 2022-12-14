@@ -35,13 +35,9 @@ public class ConfigServiceImp implements ConfigService {
     }
 
     @Override
-    public String getGgsUser() {
-        return configRepository.findById(1L).get().getGgsUser();
-    }
-
-    @Override
-    public String getGgsUserPwd() {
-        return configRepository.findById(1L).get().getGgsUserPwd();
+    public GgsUserInfoDto getGgsUserInfo() {
+        Config config=configRepository.findById(1L).get();
+        return new GgsUserInfoDto(config.getGgsUser(),config.getGgsUserPwd());
     }
 
     @Override
