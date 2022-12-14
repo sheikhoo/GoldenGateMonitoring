@@ -23,7 +23,8 @@ public class SpringSecurity {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.
                 authorizeHttpRequests()
-                .requestMatchers("/index","/**").hasRole("USER")
+                .requestMatchers("/config/**","/index","/**").permitAll()
+                .requestMatchers("/panel/**").hasRole("USER")
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .and()
                 .formLogin(
