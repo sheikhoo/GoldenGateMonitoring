@@ -50,7 +50,29 @@
                 </div>
                 <div class="bs-stepper-content">
                     <!-- your steps content here -->
-                    <div id="ggsHome-part" class="content" role="tabpanel" aria-labelledby="ggsHome-part-trigger"></div>
+                    <div id="ggsHome-part" class="content" role="tabpanel" aria-labelledby="ggsHome-part-trigger">
+                        <form
+                                method="post"
+                                role="form"
+                                class="form-horizontal"
+                                id="ggsHomeForm"
+                        >
+                            <div class="form-group mb-3">
+                                <label class="control-label"> Ggs home path</label>
+                                <input
+                                        type="text"
+                                        id="ggsHome"
+                                        name="ggsHome"
+                                        class="form-control"
+                                        placeholder="Enter ggs home path"
+                                />
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <button type="submit" class="btn btn-primary" >Submit</button>
+                            </div>
+                        </form>
+                    </div>
                     <div id="ggsUser-part" class="content" role="tabpanel" aria-labelledby="ggsUser-part-trigger"></div>
                     <div id="admin-part" class="content" role="tabpanel" aria-labelledby="admin-part-trigger"></div>
                 </div>
@@ -60,9 +82,39 @@
 
 </div>
 <script>
+    let stepper;
     $(document).ready(function () {
-        let stepper = new Stepper($('.bs-stepper')[0])
-    })
+        stepper=new Stepper($('.bs-stepper')[0]);
+        $.ajax({
+            url: '/config/get/ggsHome',
+            type: "GET",
+            dataType: "json",
+            success:function (data) {
+                if (data.ggsHome!==undefined && data.ggsHome!==null){
+                    $("#ggsHome").val(data.ggsHome);
+                }
+            },
+            error: function (error) {
+                console.log(`Error ${error}`);
+            }
+        });
+    });
+    $('#ggsHomeForm').submit(function(e){
+        e.preventDefault();
+        $.ajax({
+            url: '/config/set/ggsHome',
+            type: 'POST',
+            data:$('#ggsHomeForm').serialize(),
+            success:function(data){
+                if (data.success){
+                    stepper.to(2);
+                }
+            },
+            error: function (error) {
+                console.log(`Error ${error}`);
+            }
+        });
+    });
 </script>
 
 <script th:src="@{/dist/js/bootstrap.bundle.min.js}" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>

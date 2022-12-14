@@ -3,12 +3,12 @@ package ir.sheikhoo.goldengatemonitoring.controller;
 import ir.sheikhoo.goldengatemonitoring.model.GgsUserInfoDto;
 import ir.sheikhoo.goldengatemonitoring.service.ConfigService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.Collections;
+import java.util.Map;
+
+@RestController
 @RequestMapping("/config")
 public class ConfigController {
     private final ConfigService configService;
@@ -17,13 +17,19 @@ public class ConfigController {
         this.configService = configService;
     }
 
-    @PostMapping("/set/ggsHome/{home}")
-    private boolean setGgsHome(@PathVariable("home") String home){
-        return configService.setGgsHome(home);
+    @PostMapping("/set/ggsHome")
+    private Map<String, Boolean> setGgsHome(@RequestParam("ggsHome") String home){
+        System.out.println(home);
+        return Collections.singletonMap("success", configService.setGgsHome(home));
     }
 
     @PostMapping("/set/ggsUserInfo")
-    private boolean setGgsUserInfo(@RequestBody GgsUserInfoDto ggsUserInfo){
-        return configService.setGgsUserInfo(ggsUserInfo);
+    private Map<String, Boolean> setGgsUserInfo(@RequestBody GgsUserInfoDto ggsUserInfo){
+        return Collections.singletonMap("success", configService.setGgsUserInfo(ggsUserInfo));
+    }
+
+    @GetMapping("/get/ggsHome")
+    private Map<String, String> getGgsHome(){
+        return Collections.singletonMap("ggsHome", configService.getGgsHome());
     }
 }
