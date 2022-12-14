@@ -1,10 +1,73 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Config</title>
+    <link th:href="@{/dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link th:href="@{/dist/libs/bs-stepper/bs-stepper.min.css}" rel="stylesheet">
+    <link th:href="@{/dist/css/style.css}" rel="stylesheet">
+
+    <script th:src="@{/dist/js/jquery-3.6.1.min.js}" ></script>
+    <script th:src="@{/dist/libs/bs-stepper/bs-stepper.min.js}" ></script>
+
+    <script>
+        let type="LAST_HOUR";
+    </script>
 </head>
 <body>
+<div class="container">
+    <div class="row">
+        <div class="col-12 golden-gate">
+            <span class="title">Oracle GoldenGate Config</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 bg-white shadow-sm">
+            <div class="bs-stepper">
+                <div class="bs-stepper-header" role="tablist">
+                    <!-- your steps here -->
+                    <div class="step" data-target="#ggsHome-part">
+                        <button type="button" class="step-trigger" role="tab" aria-controls="logins-part" id="ggsHome-part-trigger">
+                            <span class="bs-stepper-circle">1</span>
+                            <span class="bs-stepper-label">GGS Home</span>
+                        </button>
+                    </div>
+                    <div class="line"></div>
+                    <div class="step" data-target="#ggsUser-part">
+                        <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="ggsUser-part-trigger">
+                            <span class="bs-stepper-circle">2</span>
+                            <span class="bs-stepper-label">GGS User info</span>
+                        </button>
+                    </div>
+                    <div class="line"></div>
+                    <div class="step" data-target="#admin-part">
+                        <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="admin-part-trigger">
+                            <span class="bs-stepper-circle">3</span>
+                            <span class="bs-stepper-label">Admin info</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="bs-stepper-content">
+                    <!-- your steps content here -->
+                    <div id="ggsHome-part" class="content" role="tabpanel" aria-labelledby="ggsHome-part-trigger"></div>
+                    <div id="ggsUser-part" class="content" role="tabpanel" aria-labelledby="ggsUser-part-trigger"></div>
+                    <div id="admin-part" class="content" role="tabpanel" aria-labelledby="admin-part-trigger"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    $(document).ready(function () {
+        let stepper = new Stepper($('.bs-stepper')[0])
+    })
+</script>
+
+<script th:src="@{/dist/js/bootstrap.bundle.min.js}" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+
 
 </body>
 </html>
