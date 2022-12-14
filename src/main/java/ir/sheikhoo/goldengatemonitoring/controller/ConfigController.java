@@ -32,4 +32,8 @@ public class ConfigController {
     private Map<String, String> getGgsHome(){
         return Collections.singletonMap("ggsHome", configService.getGgsHome());
     }
+    @GetMapping("/get/ggsUser")
+    private Map<String, String> getGgsUser(){
+        return Collections.singletonMap("ggsUser", configService.getGgsUser());
+    }
 }

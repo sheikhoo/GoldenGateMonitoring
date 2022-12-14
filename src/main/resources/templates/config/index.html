@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Config</title>
-    <link th:href="@{/dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link th:href="@{/dist/css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/dist/libs/bs-stepper/bs-stepper.min.css}" rel="stylesheet">
     <link th:href="@{/dist/css/style.css}" rel="stylesheet">
 
@@ -67,13 +67,48 @@
                                         placeholder="Enter ggs home path"
                                 />
                             </div>
-
                             <div class="form-group mb-3">
-                                <button type="submit" class="btn btn-primary" >Submit</button>
+                                <button type="button" class="btn btn-dark" >Test</button>
+                                <button type="submit" class="btn btn-primary" >Next</button>
                             </div>
+
                         </form>
                     </div>
-                    <div id="ggsUser-part" class="content" role="tabpanel" aria-labelledby="ggsUser-part-trigger"></div>
+                    <div id="ggsUser-part" class="content" role="tabpanel" aria-labelledby="ggsUser-part-trigger">
+                        <form
+                                method="post"
+                                role="form"
+                                class="form-horizontal"
+                                id="ggsUserForm"
+                                enctype="multipart/form-data"
+                        >
+                            <div class="form-group mb-3">
+                                <label class="control-label"> oracle user name</label>
+                                <input
+                                        type="text"
+                                        id="ggsUser"
+                                        name="ggsUser"
+                                        class="form-control"
+                                        placeholder="oracle user name"
+                                />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="control-label"> oracle user password</label>
+                                <input
+                                        type="password"
+                                        id="ggsUserPwd"
+                                        name="ggsUserPwd"
+                                        class="form-control"
+                                        placeholder="oracle user password"
+                                />
+                            </div>
+                            <div class="form-group mb-3">
+                                <button type="button" class="btn btn-dark" >Test</button>
+                                <button type="submit" class="btn btn-primary" >Next</button>
+                            </div>
+
+                        </form>
+                    </div>
                     <div id="admin-part" class="content" role="tabpanel" aria-labelledby="admin-part-trigger"></div>
                 </div>
             </div>
@@ -98,6 +133,19 @@
                 console.log(`Error ${error}`);
             }
         });
+        $.ajax({
+            url: '/config/get/ggsUser',
+            type: "GET",
+            dataType: "json",
+            success:function (data) {
+                if (data.ggsUser!==undefined && data.ggsUser!==null){
+                    $("#ggsUser").val(data.ggsUser);
+                }
+            },
+            error: function (error) {
+                console.log(`Error ${error}`);
+            }
+        });
     });
     $('#ggsHomeForm').submit(function(e){
         e.preventDefault();
@@ -115,9 +163,30 @@
             }
         });
     });
+    $('#ggsUserForm').submit(function (e){
+        e.preventDefault();
+        $.ajax({
+            url: 'config/set/ggsUserInfo',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify({
+                'ggsUser':$('#ggsUser').val(),
+                'ggsUserPwd':$('#ggsUserPwd').val()
+            }),
+            success:function (data){
+                if(data.success){
+                    stepper.to(3);
+                }
+            },
+            error: function (error) {
+                console.log(`Error ${error}`);
+            }
+        });
+    });
 </script>
 
-<script th:src="@{/dist/js/bootstrap.bundle.min.js}" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script th:src="@{/dist/js/bootstrap.bundle.min.js}"></script>
 
 
 
