@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8">
+  <title>Registration and Login System</title>
+  <link th:href="@{/dist/css/bootstrap.min.css}" rel="stylesheet">
+  <script th:src="@{/dist/js/jquery-3.6.1.min.js}" ></script>
+</head>
+<body>
+<div th:replace="/admin/fragments/header :: header"></div>
+<div class="container">
+  <div class="row">
+    <div class="col-12 bg-white shadow-sm"  style="margin: 15px 0">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="text-center">Oracle GoldenGate Home</h2>
+        </div>
+        <div class="card-body">
+          <form
+                  method="post"
+                  role="form"
+                  class="form-horizontal was-validated"
+                  id="ggsHomeForm"
+          >
+            <div class="form-group mb-3">
+              <label class="control-label"> Ggs home path</label>
+              <input
+                      type="text"
+                      id="ggsHome"
+                      name="ggsHome"
+                      class="form-control"
+                      placeholder="Enter ggs home path"
+                      required
+              />
+              <div class="invalid-feedback">
+                Please enter a Oracle GoldenGate home directory.
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <button type="submit" class="btn btn-primary" >Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 bg-white shadow-sm">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="text-center">Linux Oracle User</h2>
+        </div>
+        <div class="card-body">
+          <form
+                  method="post"
+                  role="form"
+                  class="form-horizontal was-validated"
+                  id="ggsUserForm"
+                  enctype="multipart/form-data"
+          >
+            <div class="form-group mb-3">
+              <label class="control-label"> oracle user name</label>
+              <input
+                      type="text"
+                      id="ggsUser"
+                      name="ggsUser"
+                      class="form-control"
+                      placeholder="oracle user name"
+                      required
+              />
+              <div class="invalid-feedback">
+                Please enter Oracle username.
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <label class="control-label"> oracle user password</label>
+              <input
+                      type="password"
+                      id="ggsUserPwd"
+                      name="ggsUserPwd"
+                      class="form-control"
+                      placeholder="oracle user password"
+                      required
+              />
+              <div class="invalid-feedback">
+                Please enter Oracle user password.
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <button type="submit" class="btn btn-primary" >Save</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    $.ajax({
+      url: '/config/get/ggsHome',
+      type: "GET",
+      dataType: "json",
+      success:function (data) {
+        if (data.ggsHome!==undefined && data.ggsHome!==null){
+          $("#ggsHome").val(data.ggsHome);
+        }
+      },
+      error: function (error) {
+        console.log(`Error ${error}`);
+      }
+    });
+    $.ajax({
+      url: '/config/get/ggsUser',
+      type: "GET",
+      dataType: "json",
+      success:function (data) {
+        if (data.ggsUser!==undefined && data.ggsUser!==null){
+          $("#ggsUser").val(data.ggsUser);
+        }
+      },
+      error: function (error) {
+        console.log(`Error ${error}`);
+      }
+    });
+  });
+  $('#ggsHomeForm').submit(function(e){
+    e.preventDefault();
+    $.ajax({
+      url: '/config/set/ggsHome',
+      type: 'POST',
+      data:$('#ggsHomeForm').serialize(),
+      success:function(data){
+        if (data.success){
+          stepper.to(2);
+        }
+      },
+      error: function (error) {
+        console.log(`Error ${error}`);
+      }
+    });
+  });
+  $('#ggsUserForm').submit(function (e){
+    e.preventDefault();
+    $.ajax({
+      url: 'config/set/ggsUserInfo',
+      type: 'POST',
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      data: JSON.stringify({
+        'ggsUser':$('#ggsUser').val(),
+        'ggsUserPwd':$('#ggsUserPwd').val()
+      }),
+      success:function (data){
+        if(data.success){
+          stepper.to(3);
+        }
+      },
+      error: function (error) {
+        console.log(`Error ${error}`);
+      }
+    });
+  });
+</script>
+</body>
+</html>

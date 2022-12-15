@@ -5,13 +5,18 @@
 <head>
   <meta charset="UTF-8">
   <title>Registration and Login System</title>
-  <link th:href="@{/dist/libs/bs-stepper/bs-stepper.min.css}" rel="stylesheet">
+  <link th:href="@{/dist/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 <body>
 <div th:replace="/admin/fragments/header :: header"></div>
 <div class="container">
-  <div class="row col-md-10">
-    <h2>List of Users</h2>
+  <div class="row" style="margin: 5px 0">
+    <div class="col-9">
+      <h2>List of Users</h2>
+    </div>
+    <div class="col-3" style="text-align: right">
+      <a th:href="@{/admin/add/user}" class="btn btn-primary">Add new user</a>
+    </div>
   </div>
   <table class="table table-bordered table-hover">
     <thead class="table-dark">
