@@ -16,7 +16,7 @@ public class HomeController {
         this.configService = configService;
     }
 
-    @GetMapping(value = {"/",""})
+    @GetMapping(value = {"/","","/index"})
     public String home(Model model) {
         if(configService.isConfigOk()) {
             model.addAttribute("currents", ggsLogService.getCurrent());
