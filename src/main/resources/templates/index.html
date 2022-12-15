@@ -15,6 +15,81 @@
     <script>
         let type="LAST_HOUR";
     </script>
+
+    <style>
+        div.online-indicator {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            margin-right: 10px;
+
+            background-color: #0fcc45;
+            border-radius: 50%;
+
+            position: relative;
+            top: 5px;
+            left: 5px;
+        }
+        div.online-indicator span.blink {
+            display: block;
+            width: 25px;
+            height: 25px;
+
+            background-color: #0fcc45;
+            opacity: 0.7;
+            border-radius: 50%;
+
+            animation: blink 1s linear infinite;
+        }
+
+        div.offline-indicator {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            margin-right: 10px;
+
+            background-color: #cc0f0f;
+            border-radius: 50%;
+
+            position: relative;
+            top: 5px;
+            left: 5px;
+        }
+        div.offline-indicator span.blink {
+            display: block;
+            width: 25px;
+            height: 25px;
+
+            background-color: #cc0f0f;
+            opacity: 0.7;
+            border-radius: 50%;
+
+            animation: blink 1s linear infinite;
+        }
+        @keyframes blink {
+            100% { transform: scale(2, 2);
+                opacity: 0;
+            }
+        }
+        .box:first-child .online-indicator{
+            border-radius: 0px;
+            content: "MGR";
+            color: #080808;
+            width: 52px;
+            margin-right: 37px;
+            text-align: center;
+        }
+        .box:first-child span{
+            width: 52px !important;
+            border-radius: 0px !important;
+        }
+        .box:first-child .online-indicator::after {
+            content: "MGR";
+            position: absolute;
+            top: 4px;
+            left: 7px;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -44,6 +119,7 @@
                         <div class="h1 mb-0 me-2" th:text="${current.groupName}"></div>
                         <div class="me-auto">
                             <span class="text-green d-inline-flex align-items-center lh-1" th:text="${current.statusTitle}"></span>
+                            <div th:classappend="${current.status} ? 'online-indicator' : 'offline-indicator'" > <span class="blink"></span> </div>
                         </div>
                     </div>
                 </div>
