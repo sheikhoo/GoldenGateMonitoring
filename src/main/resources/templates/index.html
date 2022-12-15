@@ -126,6 +126,10 @@
                 <div th:id="${current.groupName}" class="chart-sm"></div>
 
             </div>
+            <div th:if="${current.program=='MANAGER'}" style="margin: 10px 0">
+                <button class="btn btn-danger" type="button" style="width: 49%">Stop all</button>
+                <button class="btn btn-success" type="button" style="width: 49%">Start all</button>
+            </div>
         </div>
     </div>
     <div class="row">
