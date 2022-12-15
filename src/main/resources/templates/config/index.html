@@ -10,10 +10,6 @@
 
     <script th:src="@{/dist/js/jquery-3.6.1.min.js}" ></script>
     <script th:src="@{/dist/libs/bs-stepper/bs-stepper.min.js}" ></script>
-
-    <script>
-        let type="LAST_HOUR";
-    </script>
 </head>
 <body>
 <div class="container">
@@ -54,7 +50,7 @@
                         <form
                                 method="post"
                                 role="form"
-                                class="form-horizontal"
+                                class="form-horizontal was-validated"
                                 id="ggsHomeForm"
                         >
                             <div class="form-group mb-3">
@@ -65,7 +61,11 @@
                                         name="ggsHome"
                                         class="form-control"
                                         placeholder="Enter ggs home path"
+                                        required
                                 />
+                                <div class="invalid-feedback">
+                                    Please enter a Oracle GoldenGate home directory.
+                                </div>
                             </div>
                             <div class="form-group mb-3">
                                 <button type="button" class="btn btn-dark" >Test</button>
@@ -78,7 +78,7 @@
                         <form
                                 method="post"
                                 role="form"
-                                class="form-horizontal"
+                                class="form-horizontal was-validated"
                                 id="ggsUserForm"
                                 enctype="multipart/form-data"
                         >
@@ -90,7 +90,11 @@
                                         name="ggsUser"
                                         class="form-control"
                                         placeholder="oracle user name"
+                                        required
                                 />
+                                <div class="invalid-feedback">
+                                    Please enter a Oracle username.
+                                </div>
                             </div>
                             <div class="form-group mb-3">
                                 <label class="control-label"> oracle user password</label>
@@ -100,7 +104,11 @@
                                         name="ggsUserPwd"
                                         class="form-control"
                                         placeholder="oracle user password"
+                                        required
                                 />
+                                <div class="invalid-feedback">
+                                    Please enter a Oracle user password.
+                                </div>
                             </div>
                             <div class="form-group mb-3">
                                 <button type="button" class="btn btn-dark" >Test</button>
@@ -113,7 +121,7 @@
                         <form
                                 method="post"
                                 role="form"
-                                class="form-horizontal"
+                                class="form-horizontal was-validated"
                                 id="adminUser"
                                 enctype="multipart/form-data"
                         >
@@ -125,7 +133,11 @@
                                         name="firstName"
                                         placeholder="Enter first name"
                                         type="text"
+                                        required
                                 />
+                                <div class="invalid-feedback">
+                                    Please enter first name.
+                                </div>
                             </div>
 
                             <div class="form-group mb-3">
@@ -136,7 +148,11 @@
                                         name="lastName"
                                         placeholder="Enter last name"
                                         type="text"
+                                        required
                                 />
+                                <div class="invalid-feedback">
+                                    Please enter last name.
+                                </div>
                             </div>
 
                             <div class="form-group mb-3">
@@ -147,7 +163,11 @@
                                         name="email"
                                         placeholder="Enter email address"
                                         type="email"
+                                        required
                                 />
+                                <div class="invalid-feedback">
+                                    Please enter email.
+                                </div>
                             </div>
 
                             <div class="form-group mb-3">
@@ -158,7 +178,11 @@
                                         name="password"
                                         placeholder="Enter password"
                                         type="password"
+                                        required
                                 />
+                                <div class="invalid-feedback">
+                                    Please enter password.
+                                </div>
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Create User</button>
