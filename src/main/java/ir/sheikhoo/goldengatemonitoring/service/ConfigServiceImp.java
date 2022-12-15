@@ -19,9 +19,6 @@ public class ConfigServiceImp implements ConfigService {
 
     @Override
     public Boolean isConfigOk() {
-        if(true){
-            return false;
-        }
         if(configRepository.existsById(1L)) {
             Config config = configRepository.getReferenceById(1L);
             if (config.getGgsHome() != null && !config.getGgsHome().isBlank() && !config.getGgsHome().isEmpty()) {

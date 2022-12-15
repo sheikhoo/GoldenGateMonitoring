@@ -46,9 +46,9 @@ public class GgsLogServiceImp implements GgsLogService{
                     exit
                     EOF
                     """;
+                command=command.formatted(ggsUserInfo.getGgsUser(),ggsHome,ggsUserInfo.getGgsUserPwd());
                 r = runCommand.run(command,CmdRunnerEnum.SH);
             }
-            command=command.formatted(ggsUserInfo.getGgsUser(),ggsHome,ggsUserInfo.getGgsUserPwd());
 
             String line;
             String srevice;
