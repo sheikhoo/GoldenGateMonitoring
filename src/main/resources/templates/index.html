@@ -101,7 +101,7 @@
     <div th:if="${currents==null}">
         <div class="alert alert-danger">
             This error occurs when can not find ggsci! check your GoldenGate home page<br>
-            <a th:href="@{/login}">Login to admin panel</a>
+            <a th:href="@{/admin}">Login to admin panel</a>
         </div>
     </div>
     <div class="row" th:if="${currents}">
@@ -150,7 +150,7 @@
 <script>
     function getChartData(groupName) {
         $.ajax({
-            url: '/getSevenDays/'+groupName,
+            url: '/ggsLog/getSevenDays/'+groupName,
             type: "GET",
             dataType: "json",
             success: function (data) {
@@ -163,7 +163,7 @@
     }
     function getChartDataList(groupName,type) {
         $.ajax({
-            url: '/getChartDataList/'+groupName+'/'+type,
+            url: '/ggsLog/getChartDataList/'+groupName+'/'+type,
             type: "GET",
             dataType: "json",
             success: function (data) {
@@ -176,7 +176,7 @@
     }
     function ggsLogs(){
         $.ajax({
-            url: '/ggsLogs',
+            url: '/ggsLog/ggsLogs',
             type: "GET",
             dataType: "text",
             success: function (data) {

@@ -25,6 +25,11 @@ public class AdminController {
         this.configService = configService;
     }
 
+    @GetMapping("/admin")
+    public String adminPanel(Model model){
+        return "admin/index";
+    }
+
     @GetMapping("/admin/add/user")
     public String showRegistrationForm(Model model){
         // create model object to store form data
@@ -51,29 +56,6 @@ public class AdminController {
 
         userService.saveUser(userDto);
         return "redirect:admin/addUser?success";
-    }
-
-    @PostMapping("/admin/user/add")
-    public @ResponseBody Map<String, Boolean> addUser(@RequestBody UserDto userDto){
-        if(!configService.isConfigOk()) {
-            User existingUser = userService.findUserByEmail(userDto.getEmail());
-
-            if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
-                return Collections.singletonMap("success", false);
-            }
-            if(userDto.getEmail()==null || userDto.getPassword()==null){
-                return Collections.singletonMap("success", false);
-            }
-
-            try {
-                userService.saveUser(userDto);
-                return Collections.singletonMap("success", true);
-            } catch (Exception e) {
-                return Collections.singletonMap("success", false);
-            }
-        }else {
-            return Collections.singletonMap("success", false);
-        }
     }
 
     @GetMapping("/admin/users")

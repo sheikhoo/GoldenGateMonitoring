@@ -245,7 +245,7 @@
     $('#ggsUserForm').submit(function (e){
         e.preventDefault();
         $.ajax({
-            url: 'config/set/ggsUserInfo',
+            url: '/config/set/ggsUserInfo',
             type: 'POST',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -266,7 +266,7 @@
     $('#adminUser').submit(function (e){
         e.preventDefault();
         $.ajax({
-            url: '/admin/user/add',
+            url: '/config/user/add',
             type: 'POST',
             contentType: "application/json; charset=utf-8",
             dataType: "json",

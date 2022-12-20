@@ -11,7 +11,7 @@
 	<groupId>ir.sheikhoo</groupId>
 	<artifactId>GoldenGateMonitoring</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>GoldenGateMonitoring</name>
 	<description>GoldenGateMonitoring</description>
 	<properties>
@@ -62,7 +62,6 @@
 	</dependencies>
 
 	<build>
-		<finalName>GoldenGateMonitoring</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

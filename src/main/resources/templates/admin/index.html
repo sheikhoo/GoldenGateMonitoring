@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8">
+  <title>Admin panel</title>
+  <link th:href="@{/dist/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container">
+  <div class="row" style="margin: 5px 0">
+    <div class="col-6">
+      <h2>Admin panel</h2>
+    </div>
+    <div class="col-6" style="text-align: right">
+      <a th:href="@{/admin/config}" class="btn btn-primary">Config</a>
+      <a th:href="@{/admin/users}" class="btn btn-primary">Users</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
