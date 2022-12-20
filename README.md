@@ -11,7 +11,7 @@ Classic Golden Gate monitoring with 🍃 SpringBoot and H2 db
 
 ### How To Run Application
 
-    C:\java\jdk-17\bin\java -jar GoldenGateMonitoring-0.0.1-SNAPSHOT.jar
+    C:\java\jdk-17\bin\java -jar GoldenGateMonitoring-0.0.1.jar
     
 And we are done, the **App** will be starting on port <strong style="color: #f50000;">9999</strong>
 
