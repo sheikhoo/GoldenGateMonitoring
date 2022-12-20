@@ -119,8 +119,14 @@ public class GgsLogServiceImp implements GgsLogService{
     }
 
     @Override
-    public List<GgsLog> getCurrent() {
-        LocalDateTime time=ggsLogRepository.findFirstByOrderByTimeDesc().getTime();
+    public List<GgsLog> getCurrent() throws Exception {
+        LocalDateTime time;
+        try {
+            time=ggsLogRepository.findFirstByOrderByTimeDesc().getTime();
+        }catch (Exception e){
+            throw new Exception();
+        }
+
         return ggsLogRepository.findAllByTime(time);
     }
 

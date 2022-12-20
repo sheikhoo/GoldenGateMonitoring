@@ -26,7 +26,11 @@ public class GgsLogController {
 
     @GetMapping("/getCurrent")
     public List<GgsLog> getCurrent(){
-        return ggsLogService.getCurrent();
+        try {
+            return ggsLogService.getCurrent();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @GetMapping("/getSevenDays/{groupName}")

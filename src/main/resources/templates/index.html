@@ -98,7 +98,13 @@
             <span class="title">Oracle GoldenGate</span>
         </div>
     </div>
-    <div class="row">
+    <div th:if="${currents==null}">
+        <div class="alert alert-danger">
+            This error occurs when can not find ggsci! check your GoldenGate home page<br>
+            <a th:href="@{/login}">Login to admin panel</a>
+        </div>
+    </div>
+    <div class="row" th:if="${currents}">
         <div class="col-sm-6 col-lg-3" th:each="current: ${currents}">
             <div class="card">
                 <div class="card-body">
@@ -132,7 +138,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row" th:if="${currents}">
         <div class="col-12 log">
             <div class="log-title">Logs</div>
             <div class="log-text">

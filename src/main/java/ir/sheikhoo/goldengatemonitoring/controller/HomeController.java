@@ -19,8 +19,13 @@ public class HomeController {
     @GetMapping(value = {"/","","/index"})
     public String home(Model model) {
         if(configService.isConfigOk()) {
-            model.addAttribute("currents", ggsLogService.getCurrent());
+            try {
+                model.addAttribute("currents", ggsLogService.getCurrent());
+            } catch (Exception e) {
+                model.addAttribute("currents", null);
+            }
             return "index";
+
         }else {
             return "config/index";
         }

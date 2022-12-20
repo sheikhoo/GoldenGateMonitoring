@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface GgsLogService {
     List<GgsLog> getAllLog();
-    List<GgsLog> getCurrent();
+    List<GgsLog> getCurrent() throws Exception;
     List<GgsLog> getAllSevenDaysAgo(String groupName);
     GgsLogChartDto getDataSevenDaysAgo(String groupName);
     GgsLogChartDto getChartDataList(String groupName, ChartTimeEnum type);
